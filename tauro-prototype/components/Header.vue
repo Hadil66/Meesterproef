@@ -9,24 +9,24 @@
     </div>
   </template>
   
-  <style>
+  <style scoped lang="scss">
   .header {
     position: relative;
-  }
   
   .header-image {
     max-height: 35em;
     width: 97vw;
-    border-radius: 8px;
-    margin: -6em auto 1em auto; 
+    border-radius: $border-radius;
+    margin: calc(-1 * (#{$spacing-large} + #{$spacing})) auto $spacing auto;
     display: block;
     object-fit: cover;
     z-index: 1; 
   }
-  
+
   @media (min-width: 1536px) {
     .header-image {
       width: 70vw;
     }
   }
+}
   </style>

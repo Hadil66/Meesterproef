@@ -59,176 +59,176 @@
 
   </script>
   
-  <style scoped lang="scss">
+<style scoped lang="scss">
   nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 2em;
-    height: 7em;
+    padding: $spacing * 2;
+    height: $spacing-large + ($spacing * 2); 
     position: relative;
-  
+
     .tauro-logo {
-      height: 10em;
+      height: $spacing-extra-large;
     }
-  
+
     .mobile-menu-button {
-      padding: 5px;
-      height: 4em;
-      width: 4em;
-      border-radius: 50%;
-      background-color: rgba(249, 248, 246, 0.75);
+      padding: $spacing-extra-small / 1.6;
+      height: $spacing * 4;
+      width: $spacing * 4;
+      border-radius: $border-radius-circle;
+      background-color: rgba($gray-25, 0.75);
       border: none;
       cursor: pointer;
       align-items: center;
       justify-content: center;
-  
+
       svg {
         display: block;
-        overflow: visible; 
+        overflow: visible;
 
-      > g > g > line {
-        fill: none;
-        stroke: #000000;
-        stroke-width: 13.4167;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-miterlimit: 2.6131;
-        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        transform-origin: 256.475px 256.511px;
-      }
+        > g > g > line {
+          fill: none;
+          stroke: $gray-900;
+          stroke-width: 13.4167;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-miterlimit: 2.6131;
+          transition: transform $transition-duration ease-in-out, opacity $transition-duration ease-in-out;
+          transform-origin: 256.475px 256.511px;
+        }
 
-      &.is-open {
-        > g > g {
-          > line:nth-of-type(1) { 
-            transform: rotate(45deg) translateY(125px);
-          }
-          > line:nth-of-type(2) {
-            opacity: 0;
-          }
-          > line:nth-of-type(3) { 
-            transform: rotate(-45deg) translateY(-155px);
+        &.is-open {
+          > g > g {
+            > line:nth-of-type(1) {
+              transform: rotate(45deg) translateY(125px);
+            }
+            > line:nth-of-type(2) {
+              opacity: 0;
+            }
+            > line:nth-of-type(3) {
+              transform: rotate(-45deg) translateY(-155px);
+            }
           }
         }
       }
     }
   }
-}
 
-    .mobile-menu-list {
-      position: absolute;
-      top: calc(7em - 1em);
-      right: 2em;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      z-index: 80;
-      min-width: 200px;
+  .mobile-menu-list {
+    position: absolute;
+    top: calc(#{$spacing-large + $spacing * 2} - #{$spacing});
+    right: $spacing * 2;
+    background-color: $white;
+    border: 1px solid $border-colour;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 12px rgba($gray-900, 0.15);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 80;
+    min-width: 200px;
+  }
+
+  .mobile-menu-item {
+    a {
+      display: block;
+      padding: ($spacing-small * 0.75) $spacing-medium;
+      text-decoration: none;
+      color: $gray-800;
+      font-size: 1rem;
+      border-bottom: 1px solid $border-colour-subtle;
+
+      &:hover {
+        background-color: $background-colour-alt;
+      }
     }
-  
-    .mobile-menu-item {
+
+    &:last-child {
       a {
-        display: block;
-        padding: 12px 20px;
+        border-bottom: none;
+      }
+    }
+  }
+
+  /* DESKTOP MENU */
+  .big-menu {
+    background-color: rgba($gray-25, 0.75);
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-small - 1px;
+    height: $spacing * 3;
+    padding: 0 $spacing-medium;
+    border-radius: 50px; 
+    list-style: none;
+    margin: 0;
+    align-items: center;
+
+    .big-menu-item {
+      padding: 0;
+
+      a {
+        font-size: 1rem;
         text-decoration: none;
-        color: #333;
-        font-size: 16px;
-        border-bottom: 1px solid #eee;
-  
-        &:hover {
-          background-color: #f9f8f6;
+        color: $gray-800;
+        padding: $spacing-extra-small ($spacing-small * 0.75);
+        display: block;
+        border-radius: $border-radius / 2;
 
-        }
-      }
-  
-      &:last-child {
-        a {
-          border-bottom: none;
+        &:hover,
+        &:focus-within {
+          background-color: rgba($gray-900, 0.05);
         }
       }
     }
-  
-    /* DESKTOP MENU */
-    .big-menu {
-      background-color: rgba(249, 248, 246, 0.75);
+  }
+
+  /* MEDIA QUERIES */
+  @media (max-width: 650px) {
+    nav {
+      padding: $spacing * 1.5;
+
+      .tauro-logo {
+        height: $spacing-extra-large;
+        margin-top: $spacing-large;
+      }
+
+      .mobile-menu-list {
+        right: $spacing * 1.5;
+        top: calc(#{$spacing-large + $spacing * 2} - #{$spacing * 1.5});
+      }
+    }
+  }
+
+  @media (max-width: 1079px) {
+    nav .mobile-menu-button {
       display: flex;
-      flex-direction: row;
-      gap: 15px;
-      height: 3em;
-      padding: 0 20px;
-      border-radius: 50px;
-      list-style: none;
-      margin: 0;
-      align-items: center;
-  
-      .big-menu-item {
-        padding: 0;
-  
-        a {
-          font-size: 16px;
-          text-decoration: none;
-          color: #333;
-          padding: 8px 12px;
-          display: block;
-          border-radius: 4px;
-  
-          &:hover,
-          &:focus-within {
-            background-color: rgba(0,0,0,0.05);
-          }
-        }
-      }
     }
-  
-    /* MEDIA QUERIES */
-    @media (max-width: 650px) {
-      nav{
-        padding: 1.5em; 
-  
-        .tauro-logo {
-          height: 10em;
-          margin-top: 5em;
-        }
+    .big-menu {
+      display: none;
+    }
+  }
 
-        .mobile-menu-list {
-          right: 1.5em;
-          top: calc(7em - 1.5em);
-        }
-      }
+  @media (min-width: 1080px) {
+    nav .mobile-menu-button {
+      display: none;
     }
-  
-    @media (max-width: 1079px) {
-      .mobile-menu-button {
-        display: flex; 
-      }
-      .big-menu {
-        display: none; 
-     }
-    }
-  
-    @media (min-width: 1080px) {
-      .mobile-menu-button {
-        display: none; 
-      }
-      
-      .big-menu {
-        display: flex; 
-      }
 
-      nav .tauro-logo {
-          height: 12em;
-          margin-top: 3em;
-        }
+    .big-menu {
+      display: flex;
     }
+
+    nav .tauro-logo {
+      height: $spacing-extra-large + ($spacing * 2);
+      margin-top: $spacing * 3;
+    }
+  }
+
   @media (min-width: 1536px) {
     nav {
       width: 70vw;
       margin: 0 auto;
     }
   }
-  </style>
+</style>
