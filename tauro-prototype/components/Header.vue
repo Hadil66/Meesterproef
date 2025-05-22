@@ -18,7 +18,7 @@
     max-height: 35em;
     width: 97vw;
     border-radius: 8px;
-    margin: -10em auto 1em auto; 
+    margin: -6em auto 1em auto; 
     display: block;
     object-fit: cover;
     z-index: 1; 

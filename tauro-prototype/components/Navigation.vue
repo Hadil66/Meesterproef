@@ -11,15 +11,15 @@
       >
         <!-- MENU ICON -->
         <svg width="40px" height="40px" viewBox="0 0 512 512" version="1.1" xml:space="preserve"
-          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          :class="{ 'is-open': isMobileMenuOpen }">
           <g id="_x37_20-_menu__x2C__ui__x2C__user_interface__x2C_">
             <g>
-              <line style="fill:none;stroke:#000000;stroke-width:13.4167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.6131;" x1="26.7" x2="486.25" y1="105.643" y2="105.643" />
-              <line style="fill:none;stroke:#000000;stroke-width:13.4167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.6131;" x1="26.7" x2="486.25" y1="256.511" y2="256.511" />
-              <line style="fill:none;stroke:#000000;stroke-width:13.4167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.6131;" x1="26.7" x2="486.25" y1="407.312" y2="407.312" />
+              <line x1="26.7" x2="486.25" y1="105.643" y2="105.643" />
+              <line x1="26.7" x2="486.25" y1="256.511" y2="256.511" />
+              <line x1="26.7" x2="486.25" y1="407.312" y2="407.312" />
             </g>
           </g>
-          <g id="Layer_1" />
         </svg>
       </button>
   
@@ -40,7 +40,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
+  import { ref } from 'vue';
   
   const items = [
     { title: 'Kantoorruimte', path: '/kantoorruimte' },
@@ -70,9 +70,7 @@
     position: relative;
   
     .tauro-logo {
-      z-index: 24;
-      height: 15em;
-      margin-top: -1em;
+      height: 10em;
     }
   
     .mobile-menu-button {
@@ -83,16 +81,41 @@
       background-color: rgba(249, 248, 246, 0.75);
       border: none;
       cursor: pointer;
-      z-index: 82;
-      display: flex; 
       align-items: center;
       justify-content: center;
   
       svg {
         display: block;
+        overflow: visible; 
+
+      > g > g > line {
+        fill: none;
+        stroke: #000000;
+        stroke-width: 13.4167;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 2.6131;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        transform-origin: 256.475px 256.511px;
+      }
+
+      &.is-open {
+        > g > g {
+          > line:nth-of-type(1) { 
+            transform: rotate(45deg) translateY(125px);
+          }
+          > line:nth-of-type(2) {
+            opacity: 0;
+          }
+          > line:nth-of-type(3) { 
+            transform: rotate(-45deg) translateY(-155px);
+          }
+        }
       }
     }
-  
+  }
+}
+
     .mobile-menu-list {
       position: absolute;
       top: calc(7em - 1em);
@@ -166,15 +189,16 @@
     @media (max-width: 650px) {
       nav{
         padding: 1.5em; 
-      }
-      
   
-      .tauro-logo {
-        height: 10em;
-      }
-      .mobile-menu-list {
-        right: 1.5em;
-        top: calc(7em - 1.5em);
+        .tauro-logo {
+          height: 10em;
+          margin-top: 5em;
+        }
+
+        .mobile-menu-list {
+          right: 1.5em;
+          top: calc(7em - 1.5em);
+        }
       }
     }
   
@@ -191,16 +215,20 @@
       .mobile-menu-button {
         display: none; 
       }
+      
       .big-menu {
         display: flex; 
       }
+
+      nav .tauro-logo {
+          height: 12em;
+          margin-top: 3em;
+        }
     }
-  
-    @media (min-width: 1536px) {
-      nav {
-        width: 70vw;
-        margin: 0 auto;
-      }
+  @media (min-width: 1536px) {
+    nav {
+      width: 70vw;
+      margin: 0 auto;
     }
   }
   </style>

@@ -9,4 +9,17 @@ export default defineNuxtConfig({
       wpUsername: process.env.NUXT_PUBLIC_WP_USERNAME,
     }
   }
+  ,
+  css: [
+    '@/assets/styles/global.scss'
+  ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/assets/styles/_variables.scss";`
+        }
+      }
+    }
+  },
 });
