@@ -59,7 +59,7 @@
 
   </script>
   
-  <style scoped>
+  <style scoped lang="scss">
   nav {
     display: flex;
     flex-direction: row;
@@ -130,7 +130,7 @@
       }
     }
   
-    /* DESKTOP MENU - .big-menu is the UL */
+    /* DESKTOP MENU */
     .big-menu {
       background-color: rgba(249, 248, 246, 0.75);
       display: flex;
