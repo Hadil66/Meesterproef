@@ -74,7 +74,7 @@
     }
 
     .mobile-menu-button {
-      padding: $spacing-extra-small / 1.6;
+      padding: math.div($spacing-extra-small, 1.6);
       height: $spacing * 4;
       width: $spacing * 4;
       border-radius: $border-radius-circle;
@@ -174,11 +174,11 @@
         color: $gray-800;
         padding: $spacing-extra-small ($spacing-small * 0.75);
         display: block;
-        border-radius: $border-radius / 2;
+        border-radius: math.div($border-radius, 2);
 
         &:hover,
-        &:focus-within {
-          background-color: rgba($gray-900, 0.05);
+        &:focus {
+          color: $primary-colour;
         }
       }
     }
