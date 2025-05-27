@@ -3,9 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   runtimeConfig: {
+    wpAppPassword: process.env.NUXT_PUBLIC_WP_APP_PASSWORD,
     public: {
       wordpressApiUrl: process.env.NUXT_PUBLIC_WORDPRESS_API_URL,
-      wpAppPassword: process.env.NUXT_PUBLIC_WP_APP_PASSWORD,
       wpUsername: process.env.NUXT_PUBLIC_WP_USERNAME,
     }
   },
@@ -18,7 +18,8 @@ export default defineNuxtConfig({
         scss: {
           additionalData:
           `@use "@/assets/styles/_variables.scss" as *;
-          @use "sass:math";`
+          @use "sass:math";
+          @use "sass:color";`
         }
       }
     }
@@ -36,9 +37,7 @@ export default defineNuxtConfig({
         {
           rel: 'preload',
           as: 'image',
-          href: '/img/tauro_header.webp',
-          fetchpriority: 'high'
-        }
+          href: '/img/tauro_header.webp'        }
       ]
     }
   }
