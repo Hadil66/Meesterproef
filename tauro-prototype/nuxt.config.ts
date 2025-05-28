@@ -1,9 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+console.log('[nuxt.config.ts] Raw process.env.NUXT_PUBLIC_WORDPRESS_API_URL:', process.env.NUXT_PUBLIC_WORDPRESS_API_URL);
+console.log('[nuxt.config.ts] Type of Raw process.env.NUXT_PUBLIC_WORDPRESS_API_URL:', typeof process.env.NUXT_PUBLIC_WORDPRESS_API_URL);
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   runtimeConfig: {
-    wpAppPassword: process.env.NUXT_PUBLIC_WP_APP_PASSWORD,
+    wpAppPassword: process.env.NUXT_WP_APP_PASSWORD,
     public: {
       wordpressApiUrl: process.env.NUXT_PUBLIC_WORDPRESS_API_URL,
       wpUsername: process.env.NUXT_PUBLIC_WP_USERNAME,
