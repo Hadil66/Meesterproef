@@ -5,6 +5,7 @@ console.log('[nuxt.config.ts] Type of Raw process.env.NUXT_PUBLIC_WORDPRESS_API_
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
+
   runtimeConfig: {
     wpAppPassword: process.env.NUXT_WP_APP_PASSWORD,
     public: {
@@ -12,9 +13,11 @@ export default defineNuxtConfig({
       wpUsername: process.env.NUXT_PUBLIC_WP_USERNAME,
     }
   },
+
   css: [
     '@/assets/styles/global.scss'
   ],
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -27,6 +30,7 @@ export default defineNuxtConfig({
       }
     }
   },
+
   app: {
     head: {
       htmlAttrs: {
@@ -43,5 +47,7 @@ export default defineNuxtConfig({
           href: '/img/tauro_header.webp'        }
       ]
     }
-  }
+  },
+
+  modules: ['@nuxt/image']
 });
