@@ -68,8 +68,8 @@
   import { computed, watch } from "vue";
   import RoomSelector from "./RoomSelector.vue";
   import RoomDetails from "./RoomDetails.vue";
-  // import DatePicker from "./DatePicker.vue";
-  // import TimeSlotPicker from "./TimeSlotPicker.vue";
+  import DatePicker from "./DatePicker.vue";
+  import TimeSlotPicker from "./TimeSlotPicker.vue";
   
   const props = defineProps({
     ruimtes: { type: Array, default: () => [] },
