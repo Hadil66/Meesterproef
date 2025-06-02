@@ -63,10 +63,10 @@
       }
   
     &-list {
+      @include list-reset;
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      list-style-type: none;
   
       @media (min-width: 600px) {
         height: 15em;
@@ -85,11 +85,7 @@
       cursor: pointer;
       transition: color 0.2s ease-in-out;
       color: $text-colour;
-  
-      &:hover,
-      &:focus-visible {
-        color: $primary-colour;
-      }
+      @include on-hover-focus;
   
       &.active {
         color: $primary-colour;

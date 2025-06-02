@@ -39,14 +39,10 @@
   </script>
   
   <style lang="scss" scoped>
-  .room-details-card {
-    border: 1px solid $border-colour;
-    border-radius: $border-radius;
-    padding: $spacing-small;
-    margin-top: $spacing-extra-small;
-    background-color: $background-colour;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
+.room-details-card {
+  @include card-style(); 
+  margin-top: $spacing-extra-small;
+}
   
   .room-details-image {
     width: 100%;
@@ -89,11 +85,7 @@
   }
   
   .no-room-selected-message {
-    padding: $spacing-medium;
-    text-align: center;
-    color: $text-colour-muted;
-    background-color: $background-colour-subtle;
-    border-radius: $border-radius;
-    margin-top: $spacing-extra-small;
-  }
+  @include message-box(); 
+  margin-top: $spacing-extra-small; 
+}
   </style>

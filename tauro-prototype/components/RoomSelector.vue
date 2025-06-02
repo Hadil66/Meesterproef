@@ -52,18 +52,17 @@
   }
   
   .room-card {
+    @include card-style(
+    $padding: 0,
+    $bg-color: $gray-100
+    );
     width: 140px;
     height: 190px;
-    background-color: $gray-100;
-    border: 1px solid $border-colour;
-    border-radius: $border-radius;
-    cursor: pointer;
     transition: all 0.25s ease-in-out;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   
     &:hover {
       transform: translateY(-4px);

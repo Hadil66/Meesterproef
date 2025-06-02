@@ -68,12 +68,10 @@ const toggleTimeSelection = (time: string) => {
 
 <style scoped lang="scss">
 .time-list-container {
+  @include card-style(
+    $padding: $spacing-extra-small );
   margin-top: $spacing-extra-small;
-  border: 1px solid $border-colour;
-  border-radius: $border-radius;
-  background-color: $background-colour;
-  padding: $spacing-extra-small;
-  width: 100%;
+  width: 100%; 
 }
 
 .time-list-subheader {
@@ -85,9 +83,7 @@ const toggleTimeSelection = (time: string) => {
 }
 
 .time-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  @include list-reset; 
   max-height: 300px;
   overflow-y: auto;
   display: grid;

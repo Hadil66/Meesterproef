@@ -1,0 +1,39 @@
+@mixin card-style($padding: $spacing-small,
+    $bg-color: $background-colour,
+    $border: 1px solid $border-colour,
+    $radius: $border-radius,
+    $shadow: 0 1px 3px rgba(0, 0, 0, 0.05)) {
+    padding: $padding;
+    background-color: $bg-color;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+}
+
+@mixin list-reset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@mixin message-box($padding: $spacing-small,
+    $bg-color: $background-colour-subtle,
+    $text-color: $text-colour-muted,
+    $border: 1px solid $border-colour-subtle,
+    $radius: $border-radius,
+    $align: center) {
+    padding: $padding;
+    background-color: $bg-color;
+    color: $text-color;
+    border: $border;
+    border-radius: $radius;
+    text-align: $align;
+}
+
+@mixin on-hover-focus {
+
+    &:hover,
+    &:focus-visible {
+        @content;
+    }
+}

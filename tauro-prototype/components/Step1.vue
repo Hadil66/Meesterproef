@@ -255,14 +255,15 @@
   }
   
   .info-alert {
-    background-color: $info-colour-light;
-    color: $text-colour;
-    border: 1px solid color.scale($info-colour-light, $lightness: -10%);
-
-    padding: $spacing-small;
-    border-radius: $border-radius;
-    text-align: center;
-  }
+  @include message-box(
+    $padding: $spacing-small,
+    $bg-color: $info-colour-light,
+    $text-color: $text-colour,
+    $border: 1px solid color.scale($info-colour-light, $lightness: -10%),
+    $radius: $border-radius,
+    $align: center
+  );
+}
   
   .section-title {
     font-size: 1.1rem;

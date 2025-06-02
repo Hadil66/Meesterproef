@@ -23,9 +23,12 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData:
-          `@use "@/assets/styles/_variables.scss" as *;
+          `
+          @use "@/assets/styles/_variables.scss" as *;
+          @use "@/assets/styles/_mixins.scss" as *;
           @use "sass:math";
-          @use "sass:color";`
+          @use "sass:color";
+          `
         }
       }
     }
@@ -44,7 +47,8 @@ export default defineNuxtConfig({
         {
           rel: 'preload',
           as: 'image',
-          href: '/img/tauro_header.webp'        }
+          href: '/img/tauro_header.webp'
+        }
       ]
     }
   },
