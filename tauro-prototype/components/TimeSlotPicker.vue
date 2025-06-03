@@ -1,68 +1,87 @@
 <template>
-    <div
-      v-if="
-        props.selectedDate &&
-        !props.isLoadingTimes &&
-        props.staticPossibleTimeSlots.length > 0
-      "
-      class="time-list-container"
-    >
-      <h3 class="time-list-subheader">
-        Beschikbare tijden op {{ props.formattedSelectedDateShort }}
-      </h3>
-      <ul class="time-list">
-        <li
-          v-for="time in props.staticPossibleTimeSlots"
-          :key="time"
-          class="time-list-item"
-          :class="{
-            'time-slot-booked': props.isTimeSlotBookedFn(time),
-            'time-slot-selected': localTimeSelection.includes(time),
-          }"
-          :aria-disabled="props.isTimeSlotBookedFn(time)"
-          @click="toggleTimeSelection(time)"
+  <div
+    v-if="
+      props.selectedDate &&
+      !props.isLoadingTimes &&
+      props.staticPossibleTimeSlots.length > 0
+    "
+    class="time-list-container"
+  >
+    <h3 class="time-list-subheader">
+      Beschikbare tijden op {{ props.formattedSelectedDateShort }}
+    </h3>
+    <ul class="time-list">
+      <li
+        v-for="time in props.staticPossibleTimeSlots"
+        :key="time"
+        class="time-list-item"
+        :class="{
+          'time-slot-booked': props.isTimeSlotBooked(time),
+          'time-slot-selected': localTimeSelection.includes(time),
+        }"
+        :aria-disabled="props.isTimeSlotBooked(time)"
+        @click="toggleTimeSelection(time)"
+      >
+        <span
+          class="time-list-item-title"
+          :class="{ 'booked-text': props.isTimeSlotBooked(time) }"
         >
-          <span
-            class="time-list-item-title"
-            :class="{ 'booked-text': props.isTimeSlotBookedFn(time) }"
-          >
-            {{ time }}
-          </span>
-        </li>
-      </ul>
-    </div>
+          {{ time }}
+        </span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 
 const props = defineProps({
-  selectedDate: { type: [Date, String, null] as PropType<Date | string | null>, default: null },
-  formattedSelectedDateShort: { type: String, default: '' },
-  staticPossibleTimeSlots: { type: Array as PropType<string[]>, required: true },
-  modelValue: { type: Array as PropType<string[]>, default: () => [] },
-  isLoadingTimes: { type: Boolean, default: false },
-  isTimeSlotBookedFn: { type: Function as PropType<(time: string) => boolean>, required: true },
+selectedDate: {
+  type: [Date, String],
+  default: null
+},
+formattedSelectedDateShort: {
+  type: String,
+  default: ''
+},
+staticPossibleTimeSlots: {
+  type: Array,
+  required: true
+},
+modelValue: {
+  type: Array,
+  default: () => []
+},
+isLoadingTimes: {
+  type: Boolean,
+  default: false
+},
+isTimeSlotBooked: {
+  type: Function,
+  required: true
+},
 });
 
 const emit = defineEmits(['update:modelValue']);
 
 const localTimeSelection = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
+get: () => props.modelValue as string[],
+set: (value) => emit('update:modelValue', value),
 });
 
 const toggleTimeSelection = (time: string) => {
-  if (props.isTimeSlotBookedFn(time)) return;
+if (props.isTimeSlotBooked(time)) return; 
 
-  const newSelection = [...localTimeSelection.value];
-  const index = newSelection.indexOf(time);
-  if (index > -1) {
-    newSelection.splice(index, 1);
-  } else {
-    newSelection.push(time);
-  }
-  localTimeSelection.value = newSelection;
+const currentSelection = Array.isArray(props.modelValue) ? [...props.modelValue as string[]] : [];
+const index = currentSelection.indexOf(time);
+
+if (index > -1) {
+  currentSelection.splice(index, 1);
+} else {
+  currentSelection.push(time);
+}
+localTimeSelection.value = currentSelection;
 };
 </script>
 
@@ -78,7 +97,7 @@ const toggleTimeSelection = (time: string) => {
   font-size: $font-size-small;
   font-weight: 600;
   color: $text-colour-emphasis;
-  padding: $spacing-extra-small $spacing-extra-small $spacing-small;
+  padding: $spacing-extra-small $spacing-extra-small $spacing;
   margin: 0;
 }
 
@@ -94,7 +113,7 @@ const toggleTimeSelection = (time: string) => {
 .time-list-item {
   border: 1px solid $background-colour-hover;
   border-radius: $border-radius / 2;
-  padding: $spacing-extra-small $spacing-small;
+  padding: $spacing-extra-small $spacing;
   text-align: center;
   cursor: pointer;
   transition: background-color $transition-duration ease,

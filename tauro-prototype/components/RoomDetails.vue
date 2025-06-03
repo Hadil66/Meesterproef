@@ -49,7 +49,7 @@
     height: 150px;
     object-fit: cover;
     border-radius: $border-radius - 2px;
-    margin-bottom: $spacing-small;
+    margin-bottom: $spacing;
     border: 1px solid $border-colour-subtle;
   }
   

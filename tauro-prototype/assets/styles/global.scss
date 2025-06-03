@@ -28,7 +28,7 @@ h1,
 h2,
 h3
 {
-    margin-bottom: $spacing-small; 
+    margin-bottom: $spacing; 
     font-weight: 600; 
     line-height: 1.2;
     color: $text-colour-emphasis;
@@ -61,7 +61,7 @@ a {
 }
 
 ul {
-    margin-bottom: $spacing-small;
+    margin-bottom: $spacing;
     padding-left: $spacing-medium; 
 }
 

@@ -1,4 +1,7 @@
-@mixin card-style($padding: $spacing-small,
+@use './variables' as *;
+
+@mixin card-style(
+    $padding: $spacing,
     $bg-color: $background-colour,
     $border: 1px solid $border-colour,
     $radius: $border-radius,
@@ -16,7 +19,8 @@
     margin: 0;
 }
 
-@mixin message-box($padding: $spacing-small,
+@mixin message-box(
+    $padding: $spacing,
     $bg-color: $background-colour-subtle,
     $text-color: $text-colour-muted,
     $border: 1px solid $border-colour-subtle,

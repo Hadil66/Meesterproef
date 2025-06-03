@@ -401,7 +401,7 @@ watch(currentStep, (newStep) => {
   align-items: center;
   padding: $spacing-large 0;
   p {
-    margin-left: $spacing-small;
+    margin-left: $spacing;
     font-size: $font-size-large;
     color: $text-colour-muted;
   }
@@ -447,7 +447,7 @@ watch(currentStep, (newStep) => {
   &-header {
     display: flex;
     justify-content: space-around;
-    padding: $spacing-medium $spacing-small;
+    padding: $spacing-medium $spacing;
     border-bottom: 1px solid $border-colour;
     background-color: $background-colour-alt;
 
@@ -468,7 +468,7 @@ watch(currentStep, (newStep) => {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: math.div($spacing-small, 2);
+        margin-bottom: math.div($spacing, 2);
         font-weight: bold;
         transition: background-color 0.3s, color 0.3s;
       }
@@ -528,7 +528,7 @@ watch(currentStep, (newStep) => {
     }
 
     &-button {
-      padding: math.div($spacing-small, 2) $spacing-small;
+      padding: math.div($spacing, 2) $spacing;
       border: 1px solid $border-colour;
       border-radius: $border-radius;
       background-color: $white;

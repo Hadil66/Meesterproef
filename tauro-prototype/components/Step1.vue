@@ -256,7 +256,7 @@
   
   .info-alert {
   @include message-box(
-    $padding: $spacing-small,
+    $padding: $spacing,
     $bg-color: $info-colour-light,
     $text-color: $text-colour,
     $border: 1px solid color.scale($info-colour-light, $lightness: -10%),
@@ -269,7 +269,7 @@
     font-size: 1.1rem;
     font-weight: 400;
     color: $text-colour;
-    margin-bottom: $spacing-small;
+    margin-bottom: $spacing;
   }
   
   .section-divider {

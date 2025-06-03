@@ -134,7 +134,7 @@
   .mobile-menu-item {
     a {
       display: block;
-      padding: ($spacing-small * 0.75) $spacing-medium;
+      padding: ($spacing * 0.75) $spacing-medium;
       text-decoration: none;
       color: $gray-800;
       font-size: 1rem;
@@ -157,7 +157,7 @@
     background-color: rgba($gray-25, 0.75);
     display: flex;
     flex-direction: row;
-    gap: $spacing-small - 1px;
+    gap: $spacing;
     height: $spacing * 3;
     padding: 0 $spacing-medium;
     border-radius: 50px; 
@@ -172,7 +172,7 @@
         font-size: 1rem;
         text-decoration: none;
         color: $gray-800;
-        padding: $spacing-extra-small ($spacing-small * 0.75);
+        padding: $spacing-extra-small ($spacing * 0.75);
         display: block;
         border-radius: math.div($border-radius, 2);
 
