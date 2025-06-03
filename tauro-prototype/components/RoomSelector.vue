@@ -77,13 +77,13 @@
   
     &.is-selected {
       background-color: $primary-colour;
-      color: $text-colour-on-primary;
+      color: $text-colour;
       border-color: $primary-colour;
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
       transform: translateY(-2px);
   
       .room-card-name, .room-card-capacity {
-          color: $text-colour-on-primary;
+          color: $text-colour;
       }
     }
   

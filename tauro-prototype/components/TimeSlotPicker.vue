@@ -34,55 +34,55 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+  import { computed } from 'vue';
 
-const props = defineProps({
-selectedDate: {
-  type: [Date, String],
-  default: null
-},
-formattedSelectedDateShort: {
-  type: String,
-  default: ''
-},
-staticPossibleTimeSlots: {
-  type: Array,
-  required: true
-},
-modelValue: {
-  type: Array,
-  default: () => []
-},
-isLoadingTimes: {
-  type: Boolean,
-  default: false
-},
-isTimeSlotBooked: {
-  type: Function,
-  required: true
-},
-});
+  const props = defineProps({
+  selectedDate: {
+    type: [Date, String],
+    default: null
+  },
+  formattedSelectedDateShort: {
+    type: String,
+    default: ''
+  },
+  staticPossibleTimeSlots: {
+    type: Array,
+    required: true
+  },
+  modelValue: {
+    type: Array,
+    default: () => []
+  },
+  isLoadingTimes: {
+    type: Boolean,
+    default: false
+  },
+  isTimeSlotBooked: {
+    type: Function,
+    required: true
+  },
+  });
 
-const emit = defineEmits(['update:modelValue']);
+  const emit = defineEmits(['update:modelValue']);
 
-const localTimeSelection = computed({
-get: () => props.modelValue as string[],
-set: (value) => emit('update:modelValue', value),
-});
+  const localTimeSelection = computed({
+  get: () => props.modelValue as string[],
+  set: (value) => emit('update:modelValue', value),
+  });
 
-const toggleTimeSelection = (time: string) => {
-if (props.isTimeSlotBooked(time)) return; 
+  const toggleTimeSelection = (time: string) => {
+  if (props.isTimeSlotBooked(time)) return; 
 
-const currentSelection = Array.isArray(props.modelValue) ? [...props.modelValue as string[]] : [];
-const index = currentSelection.indexOf(time);
+  const currentSelection = Array.isArray(props.modelValue) ? [...props.modelValue as string[]] : [];
+  const index = currentSelection.indexOf(time);
 
-if (index > -1) {
-  currentSelection.splice(index, 1);
-} else {
-  currentSelection.push(time);
-}
-localTimeSelection.value = currentSelection;
-};
+  if (index > -1) {
+    currentSelection.splice(index, 1);
+  } else {
+    currentSelection.push(time);
+  }
+  localTimeSelection.value = currentSelection;
+  };
 </script>
 
 <style scoped lang="scss">
@@ -105,9 +105,6 @@ localTimeSelection.value = currentSelection;
   @include list-reset; 
   max-height: 300px;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: $spacing-extra-small;
 }
 
 .time-list-item {
@@ -130,9 +127,6 @@ localTimeSelection.value = currentSelection;
     border-color: $primary-colour;
     font-weight: bold;
 
-    .time-list-item-title {
-        color: $primary-colour;
-    }
   }
 
   &.time-slot-booked {

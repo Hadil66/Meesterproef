@@ -442,7 +442,7 @@ watch(currentStep, (newStep) => {
 .stepper {
   border: 1px solid $border-colour;
   border-radius: $border-radius;
-  background-color: $white;
+  background-color: $background-colour;
 
   &-header {
     display: flex;
@@ -481,7 +481,7 @@ watch(currentStep, (newStep) => {
         color: $primary-colour;
         .stepper-header-item-circle {
           background-color: $primary-colour;
-          color: $text-colour-on-primary;
+          color: $text-colour;
         }
       }
 
@@ -531,7 +531,7 @@ watch(currentStep, (newStep) => {
       padding: math.div($spacing, 2) $spacing;
       border: 1px solid $border-colour;
       border-radius: $border-radius;
-      background-color: $white;
+      background-color: $background-colour;
       color: $text-colour;
       cursor: pointer;
       transition: background-color 0.2s, color 0.2s;
@@ -540,12 +540,10 @@ watch(currentStep, (newStep) => {
         background-color: $background-colour-hover;
       }
 
+      &--next,    
       &--prev {
-      }
-
-      &--next {
         background-color: $primary-colour;
-        color: $text-colour-on-primary;
+        color: $text-colour;
         border-color: $primary-colour;
 
         &:hover:not(:disabled) {

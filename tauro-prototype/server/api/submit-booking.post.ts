@@ -1,16 +1,8 @@
-// In your Vue component's script setup
-// ...
-// const config = useRuntimeConfig(); // No longer need WP_APP_PASSWORD here directly for POST
-// const WP_USERNAME = config.public.wpUsername; // Still okay if username is not secret for display, but not for auth on client
-// const WP_APP_PASSWORD = config.wpAppPassword; // REMOVE THIS - it will be undefined on client now and is insecure
-
 const submitBooking = async () => {
-    // ... (your existing checks and payload creation) ...
     isSubmittingBooking.value = true;
     apiError.value = null;
   
     if (!selectedRoomObject.value) {
-      // ...
       return;
     }
   
@@ -34,9 +26,7 @@ const submitBooking = async () => {
         body: bookingPayload,
       });
   
-      // Assuming response contains the created booking details or success message
       lastBookingDetails.value = {
-        // ... populate based on what your server route returns or the payload
         roomId: selectedRoomObject.value.id,
         roomName: selectedRoomObject.value.fullName,
         date: formatDateISO(selectedDate.value),
@@ -44,7 +34,6 @@ const submitBooking = async () => {
         times: [...timeSelection.value],
         comment: reservationComment.value || "",
         isApiBooking: true,
-        // wordpressResponse: response // Optionally store the direct response
       };
       await fetchAllBookings(); // Refresh bookings
       currentStep.value = 4; // Move to confirmation

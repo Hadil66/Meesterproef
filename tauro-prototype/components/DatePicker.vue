@@ -1,21 +1,17 @@
 <template>
-  <UPopover>
-    <UButton color="neutral" variant="subtle" icon="i-lucide-calendar">
-      {{ modelValue ? df.format(modelValue.toDate(getLocalTimeZone())) : 'Select a date' }}
-    </UButton>
+  <VDatePicker v-model="date" mode="date" />
 
-    <template #content>
-      <UCalendar v-model="modelValue" class="p-2" />
-    </template>
-  </UPopover>
 </template>
 
-<script setup lang="ts">
-import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date'
-
-const df = new DateFormatter('nl-NL', {
-  dateStyle: 'medium'
-})
-
-const modelValue = shallowRef(new CalendarDate(2025, 3, 12))
+<script setup>
+import { DatePicker as VDatePicker } from 'v-calendar';
+import 'v-calendar/style.css';
+import { ref } from 'vue';
+const date = ref(new Date());
 </script>
+
+<style scoped lang="scss">
+  .vc-highlight-content-solid, .vc-blue {
+    background-color: $primary-colour !important;
+  }
+</style>
