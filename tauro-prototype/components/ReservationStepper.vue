@@ -469,7 +469,7 @@ watch(currentStep, (newStep) => {
         align-items: center;
         justify-content: center;
         margin-bottom: math.div($spacing, 2);
-        font-weight: bold;
+        font-weight: $bold;
         transition: background-color 0.3s, color 0.3s;
       }
 

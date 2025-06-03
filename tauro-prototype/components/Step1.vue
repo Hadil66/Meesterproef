@@ -237,7 +237,7 @@
   
   .stepper-title {
     font-size: $font-size-large;
-    font-weight: 400;
+    font-weight: $bold;
     color: $text-colour-emphasis;
     margin-bottom: $spacing-medium;
     text-align: center;
@@ -267,7 +267,7 @@
   
   .section-title {
     font-size: 1.1rem;
-    font-weight: 400;
+    font-weight: $bold;
     color: $text-colour;
     margin-bottom: $spacing;
   }

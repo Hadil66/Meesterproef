@@ -100,7 +100,7 @@
     }
   
     &-name {
-      font-weight: 500;
+      font-weight: $bold;
       font-size: 0.9rem;
       margin-top: math.div($spacing-extra-small, 2);
       color: $text-colour;

@@ -58,7 +58,7 @@
     text-align: center;
     margin-top: 0;
     margin-bottom: math.div($spacing-extra-small, 2);
-    font-weight: 500;
+    font-weight: $bold;
     color: $text-colour-emphasis;
   }
   

@@ -56,10 +56,9 @@
   
     h1 {
       font-size: clamp(1.5625rem, 1.027rem + 2.2549vw, 3rem);
-      padding: 0 $spacing;
       margin: 0 0 $spacing-medium 0;
       width: clamp(255px, 60%, 500px);
-      font-weight: 200;
+      font-weight: $bold;
       }
   
     &-list {

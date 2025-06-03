@@ -5,7 +5,7 @@
         <dl class="confirmation-details">
           <div class="detail-entry">
             <dt class="detail-label">Gekozen Ruimte:</dt>
-            <dd class="detail-value">{{ selectedRoomObject?.namen }}</dd>
+            <dd class="detail-value">{{ selectedRoomObject?.name }}</dd>
           </div>
           <div class="detail-entry">
             <dt class="detail-label">Datum:</dt>
@@ -39,7 +39,7 @@
   
   .stepper-title {
     font-size: $font-size-large;
-    font-weight: 500;
+    font-weight: $bold;
     color: $text-colour-emphasis;
     margin-bottom: $spacing-medium;
     text-align: center;
@@ -68,7 +68,7 @@
   }
   
   .detail-label {
-    font-weight: 600;
+    font-weight: $bold;
     margin-right: math.div($spacing-extra-small, 1.5);
     color: $text-colour-emphasis;
   }
@@ -77,7 +77,7 @@
     color: $text-colour;
     margin-left: 0;
     text-align: left;
-    text-wrap: nowrap;
+    text-wrap: wrap;
     flex-grow: 1;
   }
   
