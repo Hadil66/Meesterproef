@@ -109,7 +109,7 @@
 
 .time-list-item {
   border: 1px solid $background-colour-hover;
-  border-radius: $border-radius / 2;
+  border-radius: math.div($border-radius, 2);
   padding: $spacing-extra-small $spacing;
   text-align: center;
   cursor: pointer;

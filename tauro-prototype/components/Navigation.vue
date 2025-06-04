@@ -33,7 +33,7 @@
       <!-- DeESKTOP MENU-->
       <ul class="big-menu">
         <li v-for="(item, index) in items" :key="index" class="big-menu-item" tabindex="0">
-          <NuxtLink :to="item.path">{{ item.title }}</NuxtLink>
+          <NuxtLink :to="'#'">{{ item.title }}</NuxtLink>        
         </li>
       </ul>
     </nav>
@@ -43,7 +43,7 @@
   import { ref } from 'vue';
   
   const items = [
-    { title: 'Kantoorruimte', path: '/kantoorruimte' },
+    { title: 'Kantoorruimte', path: '' },
     { title: 'Werkplek', path: '/werkplek' },
     { title: 'Vergaderruimte', path: '/vergaderruimte' },
     { title: 'Locaties', path: '/locaties' },
