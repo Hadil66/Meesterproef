@@ -19,8 +19,8 @@
           :key="item.value"
           class="stepper-header-item"
           :class="{
-            'active': currentStep === item.value,
-            'disabled': isStepDisabled(item.value)
+            active: currentStep === item.value,
+            disabled: isStepDisabled(item.value),
           }"
           @click="!isStepDisabled(item.value) && goToStep(item.value)"
         >
@@ -63,7 +63,10 @@
         />
       </div>
 
-      <div class="stepper-actions" :class="{ 'prev-invisible': currentStep === 1 && !isSubmittingBooking }">
+      <div
+        class="stepper-actions"
+        :class="{ 'prev-invisible': currentStep === 1 && !isSubmittingBooking }"
+      >
         <button
           v-if="currentStep !== 1 && !isSubmittingBooking"
           @click="prevStep"
@@ -80,9 +83,17 @@
           Volgende
         </button>
       </div>
-       <!-- Message for no rooms -->
-      <div v-if="initialLoadComplete && filteredRuimtes.length === 0 && selectedCityFilter" class="no-rooms-message">
-        Er zijn momenteel geen vergaderruimtes beschikbaar voor de geselecteerde stad.
+      <!-- Message for no rooms -->
+      <div
+        v-if="
+          initialLoadComplete &&
+          filteredRuimtes.length === 0 &&
+          selectedCityFilter
+        "
+        class="no-rooms-message"
+      >
+        Er zijn momenteel geen vergaderruimtes beschikbaar voor de geselecteerde
+        stad.
       </div>
     </div>
   </div>
@@ -104,7 +115,7 @@ const props = defineProps({
   },
   selectedCityDisplayName: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 
@@ -133,8 +144,13 @@ const baseStepperItems = [
 const stepperDisplayItems = ref([...baseStepperItems]);
 
 const staticPossibleTimeSlots = [
-  "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00",
-  "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00",
+  "09:00 - 10:00",
+  "10:00 - 11:00",
+  "11:00 - 12:00",
+  "13:00 - 14:00",
+  "14:00 - 15:00",
+  "15:00 - 16:00",
+  "16:00 - 17:00",
 ];
 
 const formatDateISO = (dateInput) => {
@@ -143,7 +159,9 @@ const formatDateISO = (dateInput) => {
   try {
     date = dateInput instanceof Date ? dateInput : new Date(dateInput);
     if (isNaN(date.getTime())) return null;
-  } catch (e) { return null; }
+  } catch (e) {
+    return null;
+  }
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -159,8 +177,10 @@ const filteredRuimtes = computed(() => {
   if (!ruimtes.value || ruimtes.value.length === 0) {
     return [];
   }
-  return ruimtes.value.filter(room =>
-    room.city && room.city.toLowerCase() === props.selectedCityFilter.toLowerCase()
+  return ruimtes.value.filter(
+    (room) =>
+      room.city &&
+      room.city.toLowerCase() === props.selectedCityFilter.toLowerCase()
   );
 });
 
@@ -178,7 +198,10 @@ const fetchRooms = async () => {
       city: room.acf?.city_name,
     }));
   } catch (error) {
-    console.error("Error fetching rooms:", error.response?.data || error.message || error);
+    console.error(
+      "Error fetching rooms:",
+      error.response?.data || error.message || error
+    );
     apiError.value = `Kon vergaderruimtes niet laden: ${error.message}.`;
     ruimtes.value = [];
   }
@@ -195,7 +218,10 @@ const fetchAllBookings = async () => {
       times: booking.acf?.booking_time_slots || [],
     }));
   } catch (error) {
-    console.error("Error fetching bookings:", error.response?.data || error.message || error);
+    console.error(
+      "Error fetching bookings:",
+      error.response?.data || error.message || error
+    );
     apiError.value = `Kon bestaande reserveringen niet laden: ${error.message}.`;
     allBookingsFromApi.value = [];
   } finally {
@@ -208,55 +234,77 @@ onMounted(async () => {
   initialLoadComplete.value = false;
   apiError.value = null;
 
-  if (!WORDPRESS_API_URL || typeof WORDPRESS_API_URL !== 'string' || WORDPRESS_API_URL.trim() === '') {
+  if (
+    !WORDPRESS_API_URL ||
+    typeof WORDPRESS_API_URL !== "string" ||
+    WORDPRESS_API_URL.trim() === ""
+  ) {
     apiError.value = `API configuratie ontbreekt of is ongeldig. Controleer de WORDPRESS_API_URL instelling.`;
     isLoading.value = false;
     initialLoadComplete.value = true;
-    console.error("CRITICAL: WORDPRESS_API_URL is not configured correctly. Value:", JSON.stringify(WORDPRESS_API_URL));
+    console.error(
+      "CRITICAL: WORDPRESS_API_URL is not configured correctly. Value:",
+      JSON.stringify(WORDPRESS_API_URL)
+    );
     return;
   }
 
   await fetchRooms();
-  if (!apiError.value || (apiError.value && !apiError.value.includes("vergaderruimtes"))) {
+  if (
+    !apiError.value ||
+    (apiError.value && !apiError.value.includes("vergaderruimtes"))
+  ) {
     await fetchAllBookings();
   }
   isLoading.value = false;
   initialLoadComplete.value = true;
 });
 
-watch(() => props.selectedCityFilter, (newCitySlug, oldCitySlug) => {
-  if (newCitySlug !== oldCitySlug) {
-    selectedVergaderruimteId.value = null;
-    selectedDate.value = null;
-    timeSelection.value = [];
-    reservationComment.value = "";
-    if (currentStep.value !== 1 && currentStep.value !== 4) {
-      currentStep.value = 1;
+watch(
+  () => props.selectedCityFilter,
+  (newCitySlug, oldCitySlug) => {
+    if (newCitySlug !== oldCitySlug) {
+      selectedVergaderruimteId.value = null;
+      selectedDate.value = null;
+      timeSelection.value = [];
+      reservationComment.value = "";
+      if (currentStep.value !== 1 && currentStep.value !== 4) {
+        currentStep.value = 1;
+      }
+      if (apiError.value) apiError.value = null;
     }
-    if(apiError.value) apiError.value = null;
   }
-});
+);
 
 watch(selectedVergaderruimteId, (newId, oldId) => {
   if (newId !== oldId && newId !== null) {
     if (props.selectedCityFilter) {
-        selectedDate.value = null;
-        timeSelection.value = [];
+      selectedDate.value = null;
+      timeSelection.value = [];
     }
   }
 });
 
 const selectedRoomObject = computed(() => {
-  if (selectedVergaderruimteId.value === null || !filteredRuimtes.value.length) return null;
-  return filteredRuimtes.value.find((ruimte) => ruimte.id === selectedVergaderruimteId.value);
+  if (selectedVergaderruimteId.value === null || !filteredRuimtes.value.length)
+    return null;
+  return filteredRuimtes.value.find(
+    (ruimte) => ruimte.id === selectedVergaderruimteId.value
+  );
 });
 
 const formattedSelectedDateLong = computed(() => {
   if (!selectedDate.value) return "";
-  const date = selectedDate.value instanceof Date ? selectedDate.value : new Date(selectedDate.value);
+  const date =
+    selectedDate.value instanceof Date
+      ? selectedDate.value
+      : new Date(selectedDate.value);
   if (isNaN(date.getTime())) return "Ongeldige datum";
   return date.toLocaleDateString("nl-NL", {
-    weekday: "long", year: "numeric", month: "long", day: "numeric",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 });
 
@@ -272,13 +320,24 @@ const isNextButtonDisabled = computed(() => {
   if (isSubmittingBooking.value) return true;
   if (currentStep.value === 1 && !canProceedToStep2.value) return true;
   if (currentStep.value === 2 && !canProceedToStep2.value) return true;
-  if (initialLoadComplete.value && filteredRuimtes.value.length === 0 && props.selectedCityFilter) return true;
+  if (
+    initialLoadComplete.value &&
+    filteredRuimtes.value.length === 0 &&
+    props.selectedCityFilter
+  )
+    return true;
   return false;
 });
 
 const isStepDisabled = (stepValue) => {
   if (isLoading.value || isSubmittingBooking.value) return true;
-  if (initialLoadComplete.value && filteredRuimtes.value.length === 0 && props.selectedCityFilter && stepValue !== 4) return true;
+  if (
+    initialLoadComplete.value &&
+    filteredRuimtes.value.length === 0 &&
+    props.selectedCityFilter &&
+    stepValue !== 4
+  )
+    return true;
   if (stepValue === 2 && !canProceedToStep2.value) return true;
   if (stepValue === 3 && !canProceedToStep2.value) return true;
   if (stepValue === 4 && currentStep.value !== 4) return true;
@@ -290,10 +349,12 @@ const goToStep = (stepValue) => {
     if (stepValue < currentStep.value) {
       currentStep.value = stepValue;
     } else if (stepValue === currentStep.value + 1) {
-      if (currentStep.value === 1 && canProceedToStep2.value) currentStep.value = stepValue;
-      else if (currentStep.value === 2 && canProceedToStep2.value) currentStep.value = stepValue;
-    } else if (stepValue < 4 && stepValue < currentStep.value) {
+      if (currentStep.value === 1 && canProceedToStep2.value)
         currentStep.value = stepValue;
+      else if (currentStep.value === 2 && canProceedToStep2.value)
+        currentStep.value = stepValue;
+    } else if (stepValue < 4 && stepValue < currentStep.value) {
+      currentStep.value = stepValue;
     }
   }
 };
@@ -327,7 +388,9 @@ const submitBooking = async () => {
 
   const bookingPayload = {
     status: "publish",
-    title: `Reservering voor ${selectedRoomObject.value.name} op ${formatDateISO(selectedDate.value)}`,
+    title: `Reservering voor ${
+      selectedRoomObject.value.name
+    } op ${formatDateISO(selectedDate.value)}`,
     acf: {
       booking_room_id: selectedRoomObject.value.id,
       booking_date: formatDateISO(selectedDate.value),
@@ -336,15 +399,18 @@ const submitBooking = async () => {
     },
   };
 
-  console.log("Submitting Booking Payload to Nuxt Server Route:", JSON.stringify(bookingPayload, null, 2));
+  console.log(
+    "Submitting Booking Payload to Nuxt Server Route:",
+    JSON.stringify(bookingPayload, null, 2)
+  );
 
   try {
-    const wordpressResponse = await $fetch('/api/submitBooking', {
-      method: 'POST',
+    const wordpressResponse = await $fetch("/api/submitBooking", {
+      method: "POST",
       body: bookingPayload,
     });
 
-    console.log('Booking successful, WordPress response:', wordpressResponse);
+    console.log("Booking successful, WordPress response:", wordpressResponse);
 
     lastBookingDetails.value = {
       roomId: selectedRoomObject.value.id,
@@ -358,8 +424,16 @@ const submitBooking = async () => {
     await fetchAllBookings();
     currentStep.value = 4;
   } catch (error) {
-    console.error("Error submitting booking via Nuxt server route:", error.data || error.message || error);
-    apiError.value = `Fout bij het maken van de reservering: ${error.data?.message || error.data?.statusMessage || error.message || 'Onbekende serverfout'}.`;
+    console.error(
+      "Error submitting booking via Nuxt server route:",
+      error.data || error.message || error
+    );
+    apiError.value = `Fout bij het maken van de reservering: ${
+      error.data?.message ||
+      error.data?.statusMessage ||
+      error.message ||
+      "Onbekende serverfout"
+    }.`;
   } finally {
     isSubmittingBooking.value = false;
   }
@@ -377,7 +451,9 @@ const resetStepper = async () => {
 
 watch(currentStep, (newStep) => {
   const confirmationStepConfig = { title: "Bevestigd", value: 4 };
-  const hasConfirmationStep = stepperDisplayItems.value.some((item) => item.value === 4);
+  const hasConfirmationStep = stepperDisplayItems.value.some(
+    (item) => item.value === 4
+  );
 
   if (newStep === 4 && !hasConfirmationStep) {
     stepperDisplayItems.value = [...baseStepperItems, confirmationStepConfig];
@@ -385,7 +461,6 @@ watch(currentStep, (newStep) => {
     stepperDisplayItems.value = [...baseStepperItems];
   }
 });
-
 </script>
 
 <style lang="scss" scoped>
@@ -416,8 +491,12 @@ watch(currentStep, (newStep) => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error-alert {
@@ -494,11 +573,11 @@ watch(currentStep, (newStep) => {
       }
       &.disabled {
         opacity: 0.6;
-         .stepper-header-item-circle {
-            background-color: $gray-100;
-            color: $gray-400;
-         }
-         color: $gray-400;
+        .stepper-header-item-circle {
+          background-color: $gray-100;
+          color: $gray-400;
+        }
+        color: $gray-400;
       }
 
       &:not(.disabled):hover {
@@ -506,7 +585,7 @@ watch(currentStep, (newStep) => {
           background-color: color.scale($gray-200, $lightness: -10%);
         }
         &.active .stepper-header-item-circle {
-           background-color: color.scale($primary-colour, $lightness: -10%);
+          background-color: color.scale($primary-colour, $lightness: -10%);
         }
       }
     }
@@ -540,7 +619,7 @@ watch(currentStep, (newStep) => {
         background-color: $background-colour-hover;
       }
 
-      &--next,    
+      &--next,
       &--prev {
         background-color: $primary-colour;
         color: $text-colour;

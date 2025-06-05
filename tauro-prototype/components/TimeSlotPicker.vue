@@ -34,46 +34,48 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue';
+import { computed } from "vue";
 
-  const props = defineProps({
+const props = defineProps({
   selectedDate: {
     type: [Date, String],
-    default: null
+    default: null,
   },
   formattedSelectedDateShort: {
     type: String,
-    default: ''
+    default: "",
   },
   staticPossibleTimeSlots: {
     type: Array,
-    required: true
+    required: true,
   },
   modelValue: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   isLoadingTimes: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isTimeSlotBooked: {
     type: Function,
-    required: true
+    required: true,
   },
-  });
+});
 
-  const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(["update:modelValue"]);
 
-  const localTimeSelection = computed({
+const localTimeSelection = computed({
   get: () => props.modelValue as string[],
-  set: (value) => emit('update:modelValue', value),
-  });
+  set: (value) => emit("update:modelValue", value),
+});
 
-  const toggleTimeSelection = (time: string) => {
-  if (props.isTimeSlotBooked(time)) return; 
+const toggleTimeSelection = (time: string) => {
+  if (props.isTimeSlotBooked(time)) return;
 
-  const currentSelection = Array.isArray(props.modelValue) ? [...props.modelValue as string[]] : [];
+  const currentSelection = Array.isArray(props.modelValue)
+    ? [...(props.modelValue as string[])]
+    : [];
   const index = currentSelection.indexOf(time);
 
   if (index > -1) {
@@ -82,15 +84,14 @@
     currentSelection.push(time);
   }
   localTimeSelection.value = currentSelection;
-  };
+};
 </script>
 
 <style scoped lang="scss">
 .time-list-container {
-  @include card-style(
-    $padding: $spacing-extra-small );
+  @include card-style($padding: $spacing-extra-small);
   margin-top: $spacing-extra-small;
-  width: 100%; 
+  width: 100%;
 }
 
 .time-list-subheader {
@@ -102,7 +103,7 @@
 }
 
 .time-list {
-  @include list-reset; 
+  @include list-reset;
   max-height: 300px;
   overflow-y: auto;
 }
@@ -114,8 +115,7 @@
   text-align: center;
   cursor: pointer;
   transition: background-color $transition-duration ease,
-              border-color $transition-duration ease,
-              opacity $transition-duration ease;
+    border-color $transition-duration ease, opacity $transition-duration ease;
   user-select: none;
 
   &:not(.time-slot-booked):hover {
@@ -126,7 +126,6 @@
     background-color: $background-colour-selected;
     border-color: $primary-colour;
     font-weight: bold;
-
   }
 
   &.time-slot-booked {

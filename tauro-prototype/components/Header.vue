@@ -1,18 +1,18 @@
 <template>
-    <div class="header">
-      <Navigation /> 
-      <img
-        src="/images/tauro_header.webp"
-        class="header-image"
-        alt="Mensen in een kantoorruimte"
-      >
-    </div>
-  </template>
-  
-  <style scoped lang="scss">
-  .header {
-    position: relative;
-  
+  <div class="header">
+    <Navigation />
+    <img
+      src="/images/tauro_header.webp"
+      class="header-image"
+      alt="Mensen in een kantoorruimte"
+    />
+  </div>
+</template>
+
+<style scoped lang="scss">
+.header {
+  position: relative;
+
   .header-image {
     max-height: 35em;
     width: 97vw;
@@ -20,7 +20,7 @@
     margin: calc(-1 * (#{$spacing-large} + #{$spacing})) auto $spacing auto;
     display: block;
     object-fit: cover;
-    z-index: 1; 
+    z-index: 1;
   }
 
   @media (min-width: 1536px) {
@@ -29,4 +29,4 @@
     }
   }
 }
-  </style>
+</style>
