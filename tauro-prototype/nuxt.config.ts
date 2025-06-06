@@ -43,11 +43,18 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1.0',
       title: 'Tauro Prototype',
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+       {
+          rel: 'preload',
+          href: '/fonts/HostGrotesk-VariableFont_wght.ttf', 
+          as: 'font',
+          type: 'font/ttf',    
+          crossorigin: '' 
+        },
         {
           rel: 'preload',
-          as: 'image',
-          href: '/img/tauro_header.webp'
+          href: '/images/tauro-logo.svg', 
+          as: 'image',                   
+          type: 'image/svg+xml'         
         }
       ]
     }

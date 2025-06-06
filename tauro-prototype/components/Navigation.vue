@@ -1,6 +1,13 @@
 <template>
   <nav>
-    <img src="/images/tauro-logo.svg" class="tauro-logo" alt="Tauro logo" />
+    <img
+      src="/images/tauro-logo.svg"
+      class="tauro-logo"
+      alt="Tauro logo"
+      width="130px"
+      height="200px"
+      fetchpriority="high"
+    />
 
     <button
       class="mobile-menu-button"
@@ -30,14 +37,12 @@
       </svg>
     </button>
 
-    <!-- MOBILE MENU -->
     <ul v-if="isMobileMenuOpen" class="mobile-menu-list">
       <li v-for="(item, index) in items" :key="index" class="mobile-menu-item">
         <NuxtLink :to="item.path">{{ item.title }}</NuxtLink>
       </li>
     </ul>
 
-    <!-- DeESKTOP MENU-->
     <ul class="big-menu">
       <li
         v-for="(item, index) in items"
@@ -164,8 +169,8 @@ nav {
   }
 }
 
-/* DESKTOP MENU */
 .big-menu {
+  @include list-reset;
   background-color: rgba($gray-25, 0.75);
   display: flex;
   flex-direction: row;
@@ -173,7 +178,6 @@ nav {
   height: $spacing * 3;
   padding: 0 $spacing-medium;
   border-radius: 50px;
-  list-style: none;
   margin: 0;
   align-items: center;
 
@@ -196,7 +200,6 @@ nav {
   }
 }
 
-/* MEDIA QUERIES */
 @media (max-width: 650px) {
   nav {
     padding: $spacing * 1.5;
