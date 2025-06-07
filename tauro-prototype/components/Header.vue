@@ -1,8 +1,6 @@
 <template>
   <header>
-    <a href="#main-content" class="skip-link">
-      Sla hoofdmenu over en ga naar de hoofdinhoud
-    </a>
+    <a href="#main-content" class="skip-link">Sla het hoofdmenu over en ga direct naar de hoofdinhoud.</a>
     <Navigation />
     <NuxtImg
       src="/images/tauro-header.webp"

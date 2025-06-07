@@ -2,7 +2,7 @@
   <section class="reservation-stepper-container">
     <h2>Reserveer een vergaderruimte</h2>
 
-    <div v-if="isLoading && !apiError" class="loading-indicator" role="status" aria-live="polite">
+    <div v-if="isLoading && !apiError" class="loading-indicator" role="status">
       <div class="spinner"></div>
       <p>Gegevens laden...</p>
     </div>
