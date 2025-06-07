@@ -1,5 +1,8 @@
 <template>
-  <div class="header">
+  <header>
+    <a href="#main-content" class="skip-link">
+      Sla hoofdmenu over en ga naar de hoofdinhoud
+    </a>
     <Navigation />
     <NuxtImg
       src="/images/tauro-header.webp"
@@ -10,13 +13,29 @@
       width="1920"
       height="600"
       format="webp"
-      quality="80"
     />
-  </div>
+  </header>
 </template>
 
 <style scoped lang="scss">
-.header {
+.skip-link {
+  position: absolute;
+  top: 10px;
+  left: -9999px; 
+  z-index: 9999; 
+  padding: 1em;
+  background-color: $primary-colour;
+  color: $text-colour;
+  text-decoration: none;
+  font-weight: $bold;
+  border-radius: $border-radius;
+  
+  &:focus {
+    left: 10px;
+  }
+}
+
+header {
   position: relative;
 
   .header-image {

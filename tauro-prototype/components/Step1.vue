@@ -1,9 +1,8 @@
 <template>
-  <div class="step-1-container">
-    <h2 class="stepper-title">Stap 1: Kies Ruimte, Datum & Tijd</h2>
+  <fieldset class="step-1-fieldset">
+    <legend class="stepper-title">Stap 1: Kies Ruimte, Datum & Tijd</legend>
 
     <div class="content-grid">
-      <!-- NO ROOMS AVAILABLE -->
       <div
         v-if="
           !props.isLoadingParent &&
@@ -11,6 +10,7 @@
           !props.isLoadingTimes
         "
         class="info-alert-box"
+        role="status"
       >
         <div class="info-alert">
           Geen vergaderruimtes beschikbaar in
@@ -18,18 +18,16 @@
         </div>
       </div>
 
-      <!-- Room SELECTION -->
-      <div
+      <fieldset
         v-else-if="!props.isLoadingParent || props.ruimtes.length > 0"
-        class="room-selection-section"
+        class="room-selection-fieldset"
       >
-        <h3 class="section-title">{{ roomSelectionTitle }}</h3>
+        <legend class="section-title">{{ roomSelectionTitle }}</legend>
         <RoomSelector :ruimtes="props.ruimtes" v-model="localSelectedRoomId" />
-      </div>
+      </fieldset>
 
       <div v-if="localSelectedRoomId" class="details-date-time-grid">
         <div class="grid-columns">
-          <!-- CHOSEN ROOM DETAILS -->
           <div class="grid-column">
             <h3 class="section-title">Gekozen Ruimte Details</h3>
             <RoomDetails
@@ -38,20 +36,18 @@
             />
           </div>
 
-          <!-- DATE PICKER-->
-          <div class="grid-column">
-            <h3 class="section-title">Selecteer Datum</h3>
+          <fieldset class="grid-column">
+            <legend class="section-title">Selecteer Datum</legend>
             <DatePicker
               v-model="localSelectedDate"
               :allowed-dates="allowedDates"
               :disabled="!selectedRoomObject"
               :min-date="props.todayDateString"
             />
-          </div>
+          </fieldset>
 
-          <!-- TIME SLOT SELECTION -->
-          <div class="grid-column">
-            <h3 class="section-title">Selecteer Tijd(en)</h3>
+          <fieldset class="grid-column">
+            <legend class="section-title">Selecteer Tijd(en)</legend>
             <TimeSlotPicker
               :selected-date="localSelectedDate"
               :formatted-selected-date-short="formattedSelectedDateShort"
@@ -62,11 +58,11 @@
               :all-times-booked-for-date="allTimesBookedForDate"
               :is-time-slot-booked="isTimeSlotBooked"
             />
-          </div>
+          </fieldset>
         </div>
       </div>
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script setup>
@@ -252,11 +248,23 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.step-1-container {
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+.step-1-fieldset {
   padding: $spacing-medium 0;
 }
 
-.stepper-title {
+legend.stepper-title {
   font-size: $font-size-large;
   font-weight: $bold;
   color: $text-colour-emphasis;
@@ -271,7 +279,7 @@ watch(
 }
 
 .info-alert-box,
-.room-selection-section {
+.room-selection-fieldset {
   width: 100%;
 }
 
@@ -291,12 +299,6 @@ watch(
   font-weight: $bold;
   color: $text-colour;
   margin-bottom: $spacing;
-}
-
-.section-divider {
-  border: 0;
-  border-top: 1px solid $border-colour;
-  margin: $spacing-medium 0;
 }
 
 .details-date-time-grid {

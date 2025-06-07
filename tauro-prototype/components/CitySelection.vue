@@ -1,5 +1,5 @@
 <template>
-  <section class="city-selection">
+  <section class="city-selection" id="main-content" tabindex="-1">
     <h1>Vergaderlocaties in de randstad</h1>
     <ul class="city-selection-list" role="list">
       <li
@@ -87,10 +87,13 @@ const selectLocation = (cityValue) => {
     cursor: pointer;
     transition: color 0.2s ease-in-out;
     color: $text-colour;
-    @include on-hover-focus;
 
     &.active {
       color: $primary-colour;
+    }
+
+    &:focus-visible { 
+    @include focus-styling;
     }
   }
 }

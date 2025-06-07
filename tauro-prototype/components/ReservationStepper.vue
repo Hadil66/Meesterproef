@@ -1,20 +1,19 @@
 <template>
-  <div class="reservation-stepper-container">
-    <!-- Loading State -->
-    <div v-if="isLoading && !apiError" class="loading-indicator">
+  <section class="reservation-stepper-container">
+    <h2>Reserveer een vergaderruimte</h2>
+
+    <div v-if="isLoading && !apiError" class="loading-indicator" role="status" aria-live="polite">
       <div class="spinner"></div>
       <p>Gegevens laden...</p>
     </div>
 
-    <!-- API Error State -->
-    <div v-if="apiError && currentStep !== 4" class="error-alert">
+    <div v-if="apiError && currentStep !== 4" class="error-alert" role="alert">
       {{ apiError }}
     </div>
 
-    <!-- Stepper -->
-    <div v-if="!isLoading && !apiError && selectedCityFilter" class="stepper">
-      <div class="stepper-header">
-        <div
+    <form v-if="!isLoading && !apiError && selectedCityFilter" class="stepper" @submit.prevent="submitBooking">
+      <ol class="stepper-header">
+        <li
           v-for="item in stepperDisplayItems"
           :key="item.value"
           class="stepper-header-item"
@@ -22,12 +21,20 @@
             active: currentStep === item.value,
             disabled: isStepDisabled(item.value),
           }"
-          @click="!isStepDisabled(item.value) && goToStep(item.value)"
+          :aria-current="currentStep === item.value ? 'step' : null"
         >
-          <span class="stepper-header-item-circle">{{ item.value }}</span>
-          <span class="stepper-header-item-title">{{ item.title }}</span>
-        </div>
-      </div>
+          <button
+            type="button"
+            class="stepper-header-item-button"
+            :aria-label="`Ga naar Stap ${item.value}: ${item.title}`"
+            :disabled="isStepDisabled(item.value)"
+            @click="!isStepDisabled(item.value) && goToStep(item.value)"
+          >
+            <span class="stepper-header-item-circle">{{ item.value }}</span>
+            <span class="stepper-header-item-title">{{ item.title }}</span>
+          </button>
+        </li>
+      </ol>
 
       <div class="stepper-content">
         <Step1
@@ -69,6 +76,7 @@
       >
         <button
           v-if="currentStep !== 1 && !isSubmittingBooking"
+          type="button"
           @click="prevStep"
           class="stepper-actions-button stepper-actions-button--prev"
         >
@@ -76,6 +84,7 @@
         </button>
         <button
           v-if="currentStep < 3"
+          type="button"
           @click="nextStep"
           class="stepper-actions-button stepper-actions-button--next"
           :disabled="isNextButtonDisabled"
@@ -83,20 +92,16 @@
           Volgende
         </button>
       </div>
-      <!-- Message for no rooms -->
+
       <div
-        v-if="
-          initialLoadComplete &&
-          filteredRuimtes.length === 0 &&
-          selectedCityFilter
-        "
+        v-if="initialLoadComplete && filteredRuimtes.length === 0 && selectedCityFilter"
         class="no-rooms-message"
+        role="status"
       >
-        Er zijn momenteel geen vergaderruimtes beschikbaar voor de geselecteerde
-        stad.
+        Er zijn momenteel geen vergaderruimtes beschikbaar voor de geselecteerde stad.
       </div>
-    </div>
-  </div>
+    </form>
+  </section>
 </template>
 
 <script setup>
@@ -399,18 +404,11 @@ const submitBooking = async () => {
     },
   };
 
-  console.log(
-    "Submitting Booking Payload to Nuxt Server Route:",
-    JSON.stringify(bookingPayload, null, 2)
-  );
-
   try {
     const wordpressResponse = await $fetch("/api/submitBooking", {
       method: "POST",
       body: bookingPayload,
     });
-
-    console.log("Booking successful, WordPress response:", wordpressResponse);
 
     lastBookingDetails.value = {
       roomId: selectedRoomObject.value.id,
@@ -424,10 +422,6 @@ const submitBooking = async () => {
     await fetchAllBookings();
     currentStep.value = 4;
   } catch (error) {
-    console.error(
-      "Error submitting booking via Nuxt server route:",
-      error.data || error.message || error
-    );
     apiError.value = `Fout bij het maken van de reservering: ${
       error.data?.message ||
       error.data?.statusMessage ||
@@ -529,14 +523,33 @@ watch(currentStep, (newStep) => {
     padding: $spacing-medium $spacing;
     border-bottom: 1px solid $border-colour;
     background-color: $background-colour-alt;
+    list-style: none;
+    margin: 0;
 
     &-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      cursor: pointer;
       text-align: center;
       color: $text-colour-muted;
+    
+      &-button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        &:disabled {
+          cursor: not-allowed;
+        }
+      }
 
       &-circle {
         width: math.div($spacing-medium * 3, 2);
@@ -571,6 +584,7 @@ watch(currentStep, (newStep) => {
         }
         color: $text-colour-emphasis;
       }
+
       &.disabled {
         opacity: 0.6;
         .stepper-header-item-circle {
@@ -580,7 +594,7 @@ watch(currentStep, (newStep) => {
         color: $gray-400;
       }
 
-      &:not(.disabled):hover {
+      &:not(.disabled):hover .stepper-header-item-button {
         .stepper-header-item-circle {
           background-color: color.scale($gray-200, $lightness: -10%);
         }

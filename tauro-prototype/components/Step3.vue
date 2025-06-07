@@ -1,45 +1,42 @@
 <template>
-  <section class="booking-submission-step">
-    <h2 class="stepper-title">Stap 3: Opmerking & Reserveren</h2>
-    <div class="content-wrapper">
-      <div class="form-section">
-        <label for="reservationComment" class="form-label"
-          >Opmerking toevoegen (optioneel)</label
-        >
-        <textarea
-          id="reservationComment"
-          v-model="localComment"
-          class="form-textarea"
-          placeholder="Voeg hier eventuele opmerkingen toe"
-          rows="3"
-          maxlength="200"
-          :disabled="props.isSubmittingBooking"
-        ></textarea>
-        <p
-          v-if="localComment.length > 0 || props.isSubmittingBooking"
-          class="char-counter"
-        >
-          {{ localComment.length }} / 200
-        </p>
+  <fieldset class="booking-submission-fieldset">
+    <legend class="stepper-title">Stap 3: Opmerking & Reserveren</legend>
 
-        <hr class="divider" />
+    <label for="reservationComment" class="form-label"
+      >Opmerking toevoegen (optioneel)</label
+    >
+    <textarea
+      id="reservationComment"
+      v-model="localComment"
+      class="form-textarea"
+      placeholder="Voeg hier eventuele opmerkingen toe"
+      rows="3"
+      maxlength="200"
+      :disabled="props.isSubmittingBooking"
+    ></textarea>
+    <p
+      v-if="localComment.length > 0 || props.isSubmittingBooking"
+      class="char-counter"
+    >
+      {{ localComment.length }} / 200
+    </p>
 
-        <p class="submission-prompt">
-          Klik hieronder om uw reservering definitief te maken.
-        </p>
-        <button
-          type="button"
-          class="submit-button"
-          @click="handleSubmit"
-          :disabled="props.isSubmittingBooking"
-          :class="{ 'is-loading': props.isSubmittingBooking }"
-        >
-          <span v-if="props.isSubmittingBooking" class="button-loader"></span>
-          <span v-else>Reserveer Vergaderruimte</span>
-        </button>
-      </div>
-    </div>
-  </section>
+    <hr class="divider" />
+
+    <p class="submission-prompt">
+      Klik hieronder om uw reservering definitief te maken.
+    </p>
+    <button
+      type="button"
+      class="submit-button"
+      @click="handleSubmit"
+      :disabled="props.isSubmittingBooking"
+      :class="{ 'is-loading': props.isSubmittingBooking }"
+    >
+      <span v-if="props.isSubmittingBooking" class="button-loader"></span>
+      <span v-else>Reserveer Vergaderruimte</span>
+    </button>
+  </fieldset>
 </template>
 
 <script setup lang="ts">
@@ -65,8 +62,22 @@ const handleSubmit = () => {
 </script>
 
 <style lang="scss" scoped>
-.booking-submission-step {
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  padding: 0;
+  display: block;
   width: 100%;
+}
+
+.booking-submission-fieldset {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .stepper-title {
@@ -75,12 +86,6 @@ const handleSubmit = () => {
   color: $text-colour-emphasis;
   margin-bottom: $spacing-medium;
   text-align: center;
-}
-
-.content-wrapper {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
 }
 
 .form-label {

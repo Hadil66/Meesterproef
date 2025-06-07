@@ -1,49 +1,44 @@
 <template>
-  <div class="step4-page-container">
-    <main class="content-wrapper">
-      <article v-if="lastBookingDetails" class="confirmation-card">
-        <div class="custom-alert alert-success" role="alert">
-          <div class="alert-content">
-            <h2 class="alert-title">Reservering Succesvol!</h2>
-            <p class="alert-text">{{ confirmationMessage }}</p>
-          </div>
-        </div>
+  <div class="step4-container">
+    <section v-if="lastBookingDetails" class="confirmation-card">
+      <h2 class="confirmation-title">Reservering Succesvol!</h2>
+      <p class="confirmation-message" role="status">
+        {{ confirmationMessage }}
+      </p>
 
-        <section class="details-section">
-          <h3 class="details-heading">Uw Reserveringsdetails</h3>
-          <ul class="details-list">
-            <li>
-              <strong class="detail-label">Ruimte:</strong>
-              <span class="detail-value">{{ lastBookingDetails.roomName }}</span>
-            </li>
-            <li>
-              <strong class="detail-label">Datum:</strong>
-              <span class="detail-value">{{ lastBookingDetails.formattedDate }}</span>
-            </li>
-            <li>
-              <strong class="detail-label">Tijd(en):</strong>
-              <span class="detail-value">{{ lastBookingDetails.times?.join(", ") }}</span>
-            </li>
-            <li v-if="lastBookingDetails.comment">
-              <strong class="detail-label">Opmerking:</strong>
-              <span class="detail-value text-wrap">{{ lastBookingDetails.comment }}</span>
-            </li>
-          </ul>
-        </section>
-
-        <div class="actions-section">
-          <button
-            class="custom-btn btn-primary btn-large"
-            @click="handleNewReservation"
-          >
-            Nieuwe Reservering Maken
-          </button>
-        </div>
-      </article>
-      <div v-else class="custom-alert alert-info" role="alert">
-        Geen bevestigingsdetails beschikbaar of er is een fout opgetreden.
+      <div class="details-section">
+        <h3 class="details-heading">Uw Reserveringsdetails</h3>
+        <ul class="details-list">
+          <li>
+            <strong>Ruimte:</strong>
+            <span>{{ lastBookingDetails.roomName }}</span>
+          </li>
+          <li>
+            <strong>Datum:</strong>
+            <span>{{ lastBookingDetails.formattedDate }}</span>
+          </li>
+          <li>
+            <strong>Tijd(en):</strong>
+            <span>{{ lastBookingDetails.times?.join(", ") }}</span>
+          </li>
+          <li v-if="lastBookingDetails.comment">
+            <strong>Opmerking:</strong>
+            <span class="text-wrap">{{ lastBookingDetails.comment }}</span>
+          </li>
+        </ul>
       </div>
-    </main>
+
+      <button
+        class="custom-btn btn-primary btn-large"
+        @click="handleNewReservation"
+      >
+        Nieuwe Reservering Maken
+      </button>
+    </section>
+
+    <div v-else class="info-alert" role="alert">
+      Geen bevestigingsdetails beschikbaar of er is een fout opgetreden.
+    </div>
   </div>
 </template>
 
@@ -60,7 +55,7 @@ const emit = defineEmits(["new-reservation-requested"]);
 
 const confirmationMessage = computed(() => {
   if (!props.lastBookingDetails) {
-    return ""; 
+    return "";
   }
   return "Uw reservering is succesvol verwerkt en opgeslagen.";
 });
@@ -71,77 +66,56 @@ const handleNewReservation = () => {
 </script>
 
 <style lang="scss" scoped>
-.step4-page-container {
+.step4-container {
   display: flex;
   justify-content: center;
   padding: $spacing-medium 0;
-}
-
-.content-wrapper {
   width: 100%;
-  max-width: 768px;
-  padding: 0 $spacing;
-
-  @media (min-width: 960px) {
-    max-width: 66.66%;
-  }
-  @media (min-width: 1280px) {
-    max-width: 58.33%;
-  }
 }
 
 .confirmation-card {
   @include card-style();
-
-  @media (min-width: 768px) {
-    padding: $spacing-medium;
-  }
+  width: 100%;
+  max-width: 768px;
+  padding: $spacing-medium;
+  text-align: center;
 }
 
-.custom-alert {
-  @include message-box(
-    $padding: $spacing, 
-    $bg-color: $background-colour-subtle, 
-    $text-color: $text-colour-muted,      
-    $border: 1px solid $border-colour-subtle, 
-    $radius: math.div($border-radius, 2),    
-    $align: left                             
-  );
+.confirmation-title {
+  font-size: $font-size-large;
+  font-weight: $bold;
+  color: #2e7d32; // Success color
+  margin-bottom: $spacing-extra-small;
+}
 
-  display: flex;
-  align-items: flex-start;
+.confirmation-message {
+  font-size: $font-size-small;
+  line-height: 1.5;
+  background-color: #ecf8d5;
+  color: $gray-900;
+  border: 1px solid #c5d7a1;
+  border-radius: math.div($border-radius, 2);
+  padding: $spacing-extra-small $spacing;
   margin-bottom: $spacing-medium;
+  display: inline-block;
+  text-align: center;
+}
 
-  .alert-content {
-    flex-grow: 1; 
-  }
-
-  .alert-title {
-    font-size: $font-size-large * 0.8;
-    font-weight: $bold;
-    margin-bottom: $spacing-extra-small;
-  }
-
-  .alert-text {
-    font-size: $font-size-small;
-    line-height: 1.5;
-  }
-
-  &.alert-success {
-    background-color: #ecf8d5;
-    color: $gray-900;
-    border-color: #c5d7a1; 
-  }
-
-  &.alert-info {
-    background-color: $info-colour-light; 
-    color: $text-colour-emphasis;
-    border-color: $primary-colour; 
-  }
+.info-alert {
+  @include message-box(
+    $padding: $spacing,
+    $bg-color: $info-colour-light,
+    $text-color: $text-colour-emphasis,
+    $border: 1px solid $primary-colour,
+    $radius: math.div($border-radius, 2),
+    $align: center
+  );
+  max-width: 768px;
 }
 
 .details-section {
-  margin-bottom: $spacing-medium;
+  margin-bottom: $spacing-large;
+  text-align: left;
 
   .details-heading {
     font-size: $font-size-large * 0.9;
@@ -165,23 +139,23 @@ const handleNewReservation = () => {
       border-bottom: none;
     }
 
-    .detail-label {
+    strong {
       font-weight: $bold;
       margin-right: $spacing-extra-small;
       color: $text-colour-emphasis;
       flex-shrink: 0;
     }
 
-    .detail-value {
+    span {
       color: $text-colour;
       flex-grow: 1;
       word-break: break-word;
+
+      &.text-wrap {
+        white-space: pre-wrap;
+      }
     }
   }
-}
-
-.actions-section {
-  text-align: center;
 }
 
 .custom-btn {

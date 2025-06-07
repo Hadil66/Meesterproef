@@ -1,32 +1,24 @@
 <template>
-  <section class="selection-review-step">
-    <h2 class="stepper-title">Stap 2: Controleer uw selectie</h2>
+  <fieldset class="selection-review-fieldset">
+    <legend class="stepper-title">Stap 2: Controleer uw selectie</legend>
     <div class="content-wrapper">
-      <dl class="confirmation-details">
-        <div class="detail-entry">
-          <dt class="detail-label">Gekozen Ruimte:</dt>
-          <dd class="detail-value">{{ selectedRoomObject?.name }}</dd>
-        </div>
-        <div class="detail-entry">
-          <dt class="detail-label">Datum:</dt>
-          <dd class="detail-value">{{ formattedSelectedDateLong }}</dd>
-        </div>
-        <div class="detail-entry">
-          <dt class="detail-label">Geselecteerde Tijd(en):</dt>
-          <dd class="detail-value">
-            {{
-              timeSelection.length > 0
-                ? timeSelection.join(", ")
-                : "Geen tijden geselecteerd"
-            }}
-          </dd>
-        </div>
-      </dl>
+      <div class="confirmation-details">
+        <p>
+          <strong>Gekozen Ruimte:</strong> {{ selectedRoomObject?.name || 'Niet geselecteerd' }}
+        </p>
+        <p>
+          <strong>Datum:</strong> {{ formattedSelectedDateLong || 'Niet geselecteerd' }}
+        </p>
+        <p>
+          <strong>Geselecteerde Tijd(en):</strong>
+          {{ timeSelection.length > 0 ? timeSelection.join(", ") : "Geen tijden geselecteerd" }}
+        </p>
+      </div>
       <p class="confirmation-caption">
         Klopt alles? Klik op 'Volgende' om door te gaan.
       </p>
     </div>
-  </section>
+  </fieldset>
 </template>
 
 <script setup lang="ts">
@@ -39,7 +31,19 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.selection-review-step {
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+.selection-review-fieldset {
   width: 100%;
 }
 
@@ -64,27 +68,24 @@ defineProps({
     $radius: $border-radius,
     $shadow: 0 1px 3px rgba(0, 0, 0, 0.05)
   );
+  padding: $spacing-extra-small;
   margin-bottom: 0;
-}
 
-.detail-entry {
-  display: flex;
-  align-items: flex-start;
-  padding: $spacing-extra-small ($spacing-extra-small * 1.5);
-}
+  p {
+    padding: math.div($spacing-extra-small, 1.5) $spacing-extra-small;
+    margin: 0;
+    color: $text-colour;
 
-.detail-label {
-  font-weight: $bold;
-  margin-right: math.div($spacing-extra-small, 1.5);
-  color: $text-colour-emphasis;
-}
+    &:not(:last-child) {
+      border-bottom: 1px solid $border-colour-subtle;
+    }
 
-.detail-value {
-  color: $text-colour;
-  margin-left: 0;
-  text-align: left;
-  text-wrap: wrap;
-  flex-grow: 1;
+    strong {
+      font-weight: $bold;
+      margin-right: math.div($spacing-extra-small, 1.5);
+      color: $text-colour-emphasis;
+    }
+  }
 }
 
 .confirmation-caption {

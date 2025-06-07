@@ -16,7 +16,6 @@
       :aria-expanded="isMobileMenuOpen.toString()"
       title="Menu"
     >
-      <!-- MENU ICON -->
       <svg
         width="40px"
         height="40px"
@@ -48,7 +47,6 @@
         v-for="(item, index) in items"
         :key="index"
         class="big-menu-item"
-        tabindex="0"
       >
         <NuxtLink :to="'#'">{{ item.title }}</NuxtLink>
       </li>
@@ -117,7 +115,7 @@ nav {
       }
 
       &.is-open {
-        > g > g {
+       > g > g {
           > line:nth-of-type(1) {
             transform: rotate(45deg) translateY(125px);
           }
@@ -160,7 +158,16 @@ nav {
     &:hover {
       background-color: $background-colour-alt;
     }
+   
+    &:focus {
+      color: $primary-colour;
+    }
+
+    &:focus-visible {
+      @include focus-styling;
+    }
   }
+
 
   &:last-child {
     a {
@@ -192,9 +199,8 @@ nav {
       display: block;
       border-radius: math.div($border-radius, 2);
 
-      &:hover,
-      &:focus {
-        color: $primary-colour;
+      &:focus-visible {
+        @include focus-styling;
       }
     }
   }
@@ -247,3 +253,4 @@ nav {
   }
 }
 </style>
+
