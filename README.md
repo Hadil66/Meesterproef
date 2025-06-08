@@ -16,7 +16,7 @@ This project is a functional prototype demonstrating this concept.
 ---
 ## Key features
 - Interactive calendar view powered by v-calendar.
-- Simple, modal-based booking system.
+- Simple booking system.
 - Real-time availability fetched from a headless WordPress backend.
 - Clean, component-based architecture with Nuxt 3.
 
