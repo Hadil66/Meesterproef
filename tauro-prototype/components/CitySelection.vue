@@ -89,7 +89,8 @@ const selectLocation = (cityValue) => {
     color: $text-colour;
 
     &.active {
-      color: $primary-colour;
+    background-color: color.scale($secondary-colour, $lightness: -10%);
+    font-weight: 400;
     }
 
     &:focus-visible { 
