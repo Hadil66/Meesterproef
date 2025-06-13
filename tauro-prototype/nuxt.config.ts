@@ -6,6 +6,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
 
+  ssr: false,
+
+  image: {
+    provider: 'ipxStatic', 
+  },
+
   runtimeConfig: {
     wpAppPassword: process.env.NUXT_WP_APP_PASSWORD,
     public: {
@@ -45,16 +51,16 @@ export default defineNuxtConfig({
       link: [
        {
           rel: 'preload',
-          href: '/fonts/HostGrotesk-VariableFont_wght.ttf', 
+          href: '/fonts/HostGrotesk-VariableFont_wght.ttf',
           as: 'font',
-          type: 'font/ttf',    
-          crossorigin: '' 
+          type: 'font/ttf',
+          crossorigin: ''
         },
         {
           rel: 'preload',
-          href: '/images/tauro-logo.svg', 
-          as: 'image',                   
-          type: 'image/svg+xml'         
+          href: '/images/tauro-logo.svg',
+          as: 'image',
+          type: 'image/svg+xml'
         }
       ]
     }
