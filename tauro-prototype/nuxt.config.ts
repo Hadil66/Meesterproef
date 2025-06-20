@@ -6,6 +6,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
 
+  ssr: false,
+
+  image: {
+    provider: 'ipxStatic',
+  },
+
   runtimeConfig: {
     wpAppPassword: process.env.NUXT_WP_APP_PASSWORD,
     public: {
