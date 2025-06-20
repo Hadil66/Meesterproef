@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   ssr: false,
 
   image: {
-    provider: 'ipxStatic',
+    provider: 'ipxStatic', 
   },
 
   runtimeConfig: {
@@ -51,16 +51,16 @@ export default defineNuxtConfig({
       link: [
        {
           rel: 'preload',
-          href: '/fonts/HostGrotesk-VariableFont_wght.ttf', 
+          href: '/fonts/HostGrotesk-VariableFont_wght.ttf',
           as: 'font',
-          type: 'font/ttf',    
-          crossorigin: '' 
+          type: 'font/ttf',
+          crossorigin: ''
         },
         {
           rel: 'preload',
-          href: '/images/tauro-logo.svg', 
-          as: 'image',                   
-          type: 'image/svg+xml'         
+          href: '/images/tauro-logo.svg',
+          as: 'image',
+          type: 'image/svg+xml'
         }
       ]
     }

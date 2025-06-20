@@ -84,7 +84,6 @@ const handleNewReservation = () => {
 .confirmation-title {
   font-size: $font-size-large;
   font-weight: $bold;
-  color: #2e7d32; // Success color
   margin-bottom: $spacing-extra-small;
 }
 

@@ -14,6 +14,7 @@
       <li
         v-for="time in props.staticPossibleTimeSlots"
         :key="time"
+        @keydown.enter="toggleTimeSelection(time)"
         class="time-list-item"
         :class="{
           'time-slot-booked': props.isTimeSlotBooked(time),
@@ -21,6 +22,7 @@
         }"
         :aria-disabled="props.isTimeSlotBooked(time)"
         @click="toggleTimeSelection(time)"
+        tabindex="0"
       >
         <span
           class="time-list-item-title"
@@ -122,8 +124,8 @@ const toggleTimeSelection = (time: string) => {
     background-color: $background-colour-hover;
   }
 
-  &.time-slot-selected:not(.time-slot-booked) {
-    background-color: $background-colour-selected;
+  &.time-slot-selected:not(.time-slot-booked), &:focus-visible {
+    background-color: $background-colour-selected;    
     border-color: $primary-colour;
     font-weight: bold;
   }
